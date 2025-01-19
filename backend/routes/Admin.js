@@ -52,7 +52,7 @@ router.post("/admin/signup", async (req, res) => {
   
     try {
       const admin = await Admin.findOne({ email });
-      if (!user) {
+      if (!admin) {
         return res.status(401).json({ message: "Invalid email or password." });
       }
   

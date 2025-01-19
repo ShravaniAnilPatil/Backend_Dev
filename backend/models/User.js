@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const Question = require('./Question');
 
 const UserSchema = new Schema({
   username: {
@@ -39,6 +40,11 @@ const UserSchema = new Schema({
   type: Boolean, 
   default: true
   },
+  answeredQuestions: 
+  { type: [Schema.Types.ObjectId], 
+    required: false, 
+    ref: "Question", 
+    default: [] }, 
 });
 
 module.exports = mongoose.model('User', UserSchema);
