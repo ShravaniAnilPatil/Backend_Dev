@@ -2,38 +2,46 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { authenticateUser } = require("../middleware/authMiddleware");
 
 router.post("/signup", async (req, res) => {
-    const { email, password, username, phone_number, state, gender } = req.body;
-  
-    if (!email || !password || !username || !phone_number || !state || !gender) {
-      return res.status(400).json({ message: "All fields are required." });
+  const { email, password, username, phone_number, state, gender } = req.body;
+
+  if (!email || !password || !username || !phone_number || !state || !gender) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+  if (password.length < 8) {
+    return res.status(400).json({ message: "Password must be at least 8 characters long." });
+  }
+
+  try {
+    // Check if email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email is already in use." });
     }
-  
-    try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-  
-      const newUser = new User({
-        email,
-        password: hashedPassword,
-        username,
-        phone_number,
-        state,
-        gender,
-      });
-  
-      await newUser.save();
-  
-      res.status(201).json({ message: "User created successfully" });
-    } catch (err) {
-      console.error("Error during signup:", err);
-      res.status(500).json({ message: "Server error. Please try again later." });
-    }
-  });
-  
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({
+      email,
+      password: hashedPassword,
+      username,
+      phone_number,
+      state,
+      gender,
+    });
+
+    await newUser.save();
+
+    res.status(201).json({ message: "User created successfully" });
+  } catch (err) {
+    console.error("Error during signup:", err);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
 
   router.post("/login", async (req, res) => {
     const { email, password } = req.body;
@@ -155,6 +163,31 @@ router.put("/user/update", async (req, res) => {
       res.json(users);
     } catch (error) {
       res.status(500).json({ message: "Error fetching users" });
+    }
+  });
+  
+  router.put("/user/deactivate", async (req, res) => {
+    const { email } = req.body;
+  
+    if (!email) {
+      return res.status(400).json({ message: "Email is required." });
+    }
+  
+    try {
+      const user = await User.findOneAndUpdate(
+        { email },
+        { isActive: false },
+        { new: true }
+      );
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+  
+      res.status(200).json({ message: "Account deactivated successfully." });
+    } catch (error) {
+      console.error("Error deactivating account:", error);
+      res.status(500).json({ message: "Server error. Please try again later." });
     }
   });
   

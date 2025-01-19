@@ -13,9 +13,11 @@ const UserSchema = new Schema({
     unique: true,
     maxlength: 100
   },
+  
   password: {
     type: String,
     required: true,
+    minlength: 8,
     maxlength: 255
   },
   phone_number: {
@@ -32,7 +34,11 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     maxlength: 25
-  }
+  },
+  isActive: {
+  type: Boolean, 
+  default: true
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);
