@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# User Management System and Mock Test API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Description
+This project is a RESTful API developed using Node.js, Express.js, and MongoDB. It provides two main functionalities:
+1. **User Management System**: Handles user registration, login, account updates, deactivation, and super admin features.
+2. **Mock Test Feature**: Allows users to take mock tests, ensuring no repeated questions and tracking answered questions.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### User Management System
+- **User Registration**: A user can create an account using their name, email, password,state,gender and phone number.
+- **Login**: Registered users can log in using their email and password.
+- **User Profile**: Users can view and update their details (name, email, phone number).
+- **Account Deactivation**: Users can deactivate their account (soft delete).
+- **Super Admin**:
+  - Super admin can log in and view the details of all users.
+  - Super admin account is created manually (pre-seeded) for security.
 
-### `npm start`
+### Mock Test Feature
+- **Question Management**: Stores questions with unique IDs, options, and correct answers.
+- **Test Creation**: Ensures users do not answer the same question within a single mock test.
+- **Answer Tracking**: Tracks questions answered by each user across multiple mock tests.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB with Mongoose ORM
+- **Validation**: Joi for input validation
+- **Authentication**: JSON Web Tokens (JWT)
+- **Password Hashing**: bcrypt
+- **Testing**: Postman
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup Instructions
 
-### `npm run build`
+### Prerequisites
+- Node.js (v16+)
+- MongoDB(Atlas)
+### Create a .env file in the root directory and add the following environment variables:
+- MONGO_URI=<your_mongodb_connection_string>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ShravaniAnilPatil/Backend_Dev
+   cd backend : npm start
+   
